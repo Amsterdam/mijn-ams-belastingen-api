@@ -2,7 +2,7 @@ version: "3.0"
 
 services:
   api:
-    build: belastingen
+    build: .
     ports:
       - 8000:5000
     environment:
@@ -14,4 +14,4 @@ services:
       - UWSGI_CALLABLE=app
       - UWSGI_MODULE=api.server
       - UWSGI_BUFFER_SIZE=32768
-      - UWSGI_LOGTO=uwsgi.log
+      - UWSGI_LOGTO=/tmp/uwsgi.log
