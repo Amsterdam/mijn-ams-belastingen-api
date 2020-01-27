@@ -12,6 +12,6 @@ services:
       - UWSGI_MASTER=1
       - UWSGI_WORKERS=4
       - UWSGI_CALLABLE=app
-      - UWSGI_MODULE=api.server
+      - UWSGI_MODULE=belastingen.server
       - UWSGI_BUFFER_SIZE=32768
       - UWSGI_LOGTO=/tmp/uwsgi.log
