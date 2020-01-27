@@ -4,6 +4,7 @@ from flask import Flask, request
 from sentry_sdk.integrations.flask import FlaskIntegration
 from tma_saml import get_digi_d_bsn, InvalidBSNException
 
+from belastingen.api.belastingen.key2belastingen import K2bConnection
 from belastingen.config import get_sentry_dsn, get_tma_certificate
 
 app = Flask(__name__)
@@ -29,18 +30,20 @@ def get_bsn_from_request(request):
 
 
 @app.route('/belastingen/get', methods=['GET'])
-def get_vergunningen():
-    # connection =
+def get_belastingen():
+    connection = K2bConnection()
     try:
         bsn = get_bsn_from_request(request)
-    except InvalidBSNException as e:
+    except InvalidBSNException:
         return "Invalid BSN", 400
     except Exception as e:
         return str(e), 400
 
+    data = connection.get_stuff(bsn)
+
     return {
         'status': 'OK',
-        # 'content': zaken,
+        'content': data,
     }
 
 
