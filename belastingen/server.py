@@ -35,9 +35,9 @@ def get_belastingen():
     try:
         bsn = get_bsn_from_request(request)
     except InvalidBSNException:
-        return "Invalid BSN", 400
+        return {"status": "ERROR", "message": "Invalid BSN"}, 400
     except Exception as e:
-        return str(e), 400
+        return {"status": "ERROR", "message": str(e)}, 400
 
     data = connection.get_stuff(bsn)
 
