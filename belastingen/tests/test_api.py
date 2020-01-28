@@ -31,8 +31,7 @@ def _get_fixture_all():
 
 @patch("belastingen.server.get_tma_certificate", lambda: server_crt)
 class ApiTests(FlaskServerTMATestCase):
-    HAS_BELASTINGEN_BSN = '111222333'
-    NO_BELASTINGEN_BSN = '123456782'
+    TEST_BSN = '111222333'
 
     def setUp(self):
         """ Setup app for testing """
@@ -44,15 +43,16 @@ class ApiTests(FlaskServerTMATestCase):
         self.assertEqual(response.data, b"OK")
 
     @patch('belastingen.server.K2bConnection.get_data', lambda _self, bsn: _get_fixture_no_bsn_found())
-    def test_get_belastingen_unknow_bsn(self):
-        SAML_HEADERS = self.add_digi_d_headers(self.NO_BELASTINGEN_BSN)
+    def test_get_belastingen_unknown_bsn(self):
+        SAML_HEADERS = self.add_digi_d_headers(self.TEST_BSN)
 
         response = self.client.get('/belastingen/get', headers=SAML_HEADERS)
 
         expected_data = {
             'content': {
-                'data': [],
-                'status': 'BSN unknown'
+                'isKnown': False,
+                'meldingen': [],
+                'tips': []
             },
             'status': 'OK'
         }
@@ -60,27 +60,16 @@ class ApiTests(FlaskServerTMATestCase):
         self.assertEqual(response.json, expected_data)
 
     @patch('belastingen.server.K2bConnection.get_data', lambda _self, bsn: _get_fixture_bsn_found())
-    def test_get_belastingen(self):
-        SAML_HEADERS = self.add_digi_d_headers(self.HAS_BELASTINGEN_BSN)
+    def test_get_belastingen_known(self):
+        SAML_HEADERS = self.add_digi_d_headers(self.TEST_BSN)
 
         response = self.client.get('/belastingen/get', headers=SAML_HEADERS)
 
         expected_data = {
             'content': {
-                'data': [
-                    {
-                        'categorie': 'F2',
-                        'datum': '2020-01-28T10:07:18Z',
-                        'nummer': 1,
-                        'omschrijving': 'Themategel belastingen.',
-                        'prioriteit': 0,
-                        'thema': 'Belastingen',
-                        'titel': 'Belastingen',
-                        'url': 'https://example.com/subject.gegevens.php',
-                        'url_naam': 'Belastingen'
-                    }
-                ],
-                'status': 'BSN known'
+                'isKnown': True,
+                'meldingen': [],
+                'tips': []
             },
             'status': 'OK'
         }
@@ -89,52 +78,39 @@ class ApiTests(FlaskServerTMATestCase):
 
     @patch('belastingen.server.K2bConnection.get_data', lambda _self, bsn: _get_fixture_all())
     def test_get_all(self):
-        SAML_HEADERS = self.add_digi_d_headers(self.HAS_BELASTINGEN_BSN)
+        SAML_HEADERS = self.add_digi_d_headers(self.TEST_BSN)
 
         response = self.client.get('/belastingen/get', headers=SAML_HEADERS)
 
         expected_data = {
             'content': {
-                'data': [
+                'isKnown': True,
+                'meldingen': [
                     {
-                        'categorie': 'F2',
-                        'datum': '2020-01-28T13:11:51Z',
-                        'nummer': 1,
-                        'omschrijving': 'Themategel belastingen.',
-                        'prioriteit': 0,
-                        'thema': 'Belastingen',
-                        'titel': 'Belastingen',
-                        'url': 'https://example.com/subject.gegevens.php',
-                        'url_naam': 'Belastingen'
-                    },
-                    {
-                        'categorie': 'M1',
-                        'datum': '2020-01-28T13:11:51Z',
-                        'nummer': 4,
-                        'omschrijving': 'Er staat nog een aanslag open van u. '
-                                        'Zorg voor tijdige betaling.',
-                        'prioriteit': 1,
-                        'thema': 'Belastingen',
-                        'titel': 'Betaal uw aanslagen',
-                        'url': 'https://example.com/aanslagen.php',
-                        'url_naam': 'Betaal direct'
-                    },
-                    {
-                        'categorie': 'M2',
-                        'datum': '2020-01-28T13:11:51Z',
-                        'nummer': 5,
-                        'omschrijving': 'Betaal gemakkelijk de gecombineerde '
-                                        'belastingaanslag. Regel vandaag nog uw '
-                                        'automatische incasso, dan hebt u er '
-                                        'straks geen omkijken meer naar.',
-                        'prioriteit': 10,
-                        'thema': 'Belastingen',
-                        'titel': 'Automatische incasso',
-                        'url': 'https://example.com/automatische.incasso.aanvragen.php',
-                        'url_naam': 'Vraag direct aan'
+                        'datePublished': '2020-01-28T13:11:51Z',
+                        'description': 'Er staat nog een aanslag open van u. Zorg voor tijdige betaling.',
+                        'id': 4,
+                        'priority': 1,
+                        'title': 'Betaal uw aanslagen',
+                        'url': {
+                            'title': 'Betaal direct',
+                            'url': 'https://example.com/aanslagen.php'
+                        }
                     }
                 ],
-                'status': 'BSN known'
+                'tips': [
+                    {
+                        'datePublished': '2020-01-28T13:11:51Z',
+                        'description': 'Betaal gemakkelijk de gecombineerde belastingaanslag. Regel vandaag nog uw automatische incasso, dan hebt u er straks geen omkijken meer naar.',
+                        'id': 5,
+                        'priority': 10,
+                        'title': 'Automatische incasso',
+                        'url': {
+                            'title': 'Vraag direct aan',
+                            'url': 'https://example.com/automatische.incasso.aanvragen.php'
+                        }
+                    }
+                ]
             },
             'status': 'OK'
         }
