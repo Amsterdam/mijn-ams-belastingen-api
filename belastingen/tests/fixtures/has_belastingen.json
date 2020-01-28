@@ -1,0 +1,16 @@
+{
+  "status": "BSN known",
+  "data": [
+    {
+      "thema": "Belastingen",
+      "categorie": "F2",
+      "nummer": 1,
+      "prioriteit": 0,
+      "datum": "2020-01-28T10:07:18Z",
+      "titel": "Belastingen",
+      "omschrijving": "Themategel belastingen.",
+      "url": "https://example.com/subject.gegevens.php",
+      "url_naam": "Belastingen"
+    }
+  ]
+}
