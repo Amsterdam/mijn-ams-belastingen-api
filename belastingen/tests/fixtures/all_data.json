@@ -9,7 +9,7 @@
       "datum": "2020-01-28T13:11:51Z",
       "titel": "Belastingen",
       "omschrijving": "Themategel belastingen.",
-      "url": "https://example.com/subject.gegevens.php",
+      "url": "https://localhost/subject.gegevens.php",
       "url_naam": "Belastingen"
     },
     {
@@ -20,7 +20,7 @@
       "datum": "2020-01-28T13:11:51Z",
       "titel": "Betaal uw aanslagen",
       "omschrijving": "Er staat nog een aanslag open van u. Zorg voor tijdige betaling.",
-      "url": "https://example.com/aanslagen.php",
+      "url": "https://localhost/aanslagen.php",
       "url_naam": "Betaal direct"
     },
     {
@@ -31,7 +31,7 @@
       "datum": "2020-01-28T13:11:51Z",
       "titel": "Automatische incasso",
       "omschrijving": "Betaal gemakkelijk de gecombineerde belastingaanslag. Regel vandaag nog uw automatische incasso, dan hebt u er straks geen omkijken meer naar.",
-      "url": "https://example.com/automatische.incasso.aanvragen.php",
+      "url": "https://localhost/automatische.incasso.aanvragen.php",
       "url_naam": "Vraag direct aan"
     }
   ]

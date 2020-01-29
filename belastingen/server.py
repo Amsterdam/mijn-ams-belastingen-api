@@ -3,7 +3,7 @@ import logging
 import sentry_sdk
 from flask import Flask, request
 from sentry_sdk.integrations.flask import FlaskIntegration
-from tma_saml import get_digi_d_bsn, InvalidBSNException
+from tma_saml import get_digi_d_bsn, InvalidBSNException, SamlVerificationException
 
 from belastingen.api.belastingen.key2belastingen import K2bConnection
 from belastingen.config import get_sentry_dsn, get_tma_certificate, get_K2B_api_location
@@ -39,6 +39,8 @@ def get_belastingen():
         bsn = get_bsn_from_request(request)
     except InvalidBSNException:
         return {"status": "ERROR", "message": "Invalid BSN"}, 400
+    except SamlVerificationException as e:
+        return {"status": "ERROR", "message": e.args[0]}, 400
     except Exception as e:
         logger.error("Error", type(e), str(e))
         return {"status": "ERROR", "message": "Unknown Error"}, 400

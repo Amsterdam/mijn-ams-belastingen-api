@@ -101,7 +101,7 @@ class ApiTests(FlaskServerTMATestCase):
                         'title': 'Betaal uw aanslagen',
                         'url': {
                             'title': 'Betaal direct',
-                            'url': 'https://example.com/aanslagen.php'
+                            'url': 'https://localhost/aanslagen.php'
                         }
                     }
                 ],
@@ -114,7 +114,7 @@ class ApiTests(FlaskServerTMATestCase):
                         'title': 'Automatische incasso',
                         'url': {
                             'title': 'Vraag direct aan',
-                            'url': 'https://example.com/automatische.incasso.aanvragen.php'
+                            'url': 'https://localhost/automatische.incasso.aanvragen.php'
                         }
                     }
                 ]
@@ -123,3 +123,8 @@ class ApiTests(FlaskServerTMATestCase):
         }
 
         self.assertEqual(response.json, expected_data)
+
+    def test_getvergunningen_no_header(self):
+        response = self.client.get("/belastingen/get")
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json, {'message': 'Missing SAML token', 'status': 'ERROR'})
