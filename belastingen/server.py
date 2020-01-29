@@ -1,3 +1,4 @@
+import logging
 
 import sentry_sdk
 from flask import Flask, request
@@ -7,7 +8,9 @@ from tma_saml import get_digi_d_bsn, InvalidBSNException
 from belastingen.api.belastingen.key2belastingen import K2bConnection
 from belastingen.config import get_sentry_dsn, get_tma_certificate, get_K2B_api_location
 
+logger = logging.getLogger(__name__)
 app = Flask(__name__)
+
 
 if get_sentry_dsn():  # pragma: no cover
     sentry_sdk.init(
@@ -37,7 +40,8 @@ def get_belastingen():
     except InvalidBSNException:
         return {"status": "ERROR", "message": "Invalid BSN"}, 400
     except Exception as e:
-        return {"status": "ERROR", "message": str(e)}, 400
+        logger.error("Error", type(e), str(e))
+        return {"status": "ERROR", "message": "Unknown Error"}, 400
 
     data = connection.get_stuff(bsn)
 
