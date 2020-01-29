@@ -37,6 +37,13 @@ class ApiTests(FlaskServerTMATestCase):
         """ Setup app for testing """
         self.client = self.get_tma_test_app(app)
 
+    def test_invalid_bsn(self):
+        SAML_HEADERS = self.add_digi_d_headers(1)
+
+        response = self.client.get('/belastingen/get', headers=SAML_HEADERS)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json, {'message': 'Invalid BSN', 'status': 'ERROR'})
+
     def test_health(self):
         response = self.client.get('/status/health')
         self.assertEqual(response.status_code, 200)
