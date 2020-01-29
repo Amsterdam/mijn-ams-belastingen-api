@@ -1,0 +1,30 @@
+import os
+from unittest import TestCase
+from unittest.mock import patch
+
+
+from belastingen.config import get_sentry_dsn, get_tma_certificate, get_K2B_api_location, get_bearer_token
+
+
+class ConfigTest(TestCase):
+
+    @patch.dict(os.environ, {'SENTRY_DSN': 'sentrydsn'})
+    def test_get_sentry_dsn(self):
+        value = get_sentry_dsn()
+        self.assertEqual(value, 'sentrydsn')
+
+    @patch.dict(os.environ, {'TMA_CERTIFICATE': __file__})
+    def test_get_tma_certificate(self):
+        value = get_tma_certificate()
+        with open(__file__, 'r') as fp:
+            self.assertEqual(value, fp.read())
+
+    @patch.dict(os.environ, {'K2B_API_LOCATION': 'k2bapilocation'})
+    def test_get_K2B_api_location(self):
+        value = get_K2B_api_location()
+        self.assertEqual(value, 'k2bapilocation')
+
+    @patch.dict(os.environ, {'K2B_BEARER_TOKEN': 'k2bbearertoken'})
+    def test_get_bearer_token(self):
+        value = get_bearer_token()
+        self.assertEqual(value, 'k2bbearertoken')

@@ -1,7 +1,5 @@
 import requests
 
-from belastingen.config import get_K2B_api_location
-
 
 class K2bConnection:
     """ Class to manage the connection to Key2Belastingen. """
@@ -9,7 +7,7 @@ class K2bConnection:
         self.api_location = api_location
 
     def get_data(self, bsn: str):
-        url = "%s?subjid=%s" % (get_K2B_api_location(), bsn)
+        url = "%s?subjid=%s" % (self.api_location, bsn)
         response = requests.get(url)
         return response.json()
 
