@@ -30,6 +30,8 @@ def _get_fixture_all():
 
 
 @patch("belastingen.server.get_tma_certificate", lambda: server_crt)
+@patch("belastingen.server.get_K2B_api_location", lambda: "https://localhost")
+@patch("belastingen.server.get_bearer_token", lambda: "token")
 class ApiTests(FlaskServerTMATestCase):
     TEST_BSN = '111222333'
 

@@ -11,8 +11,8 @@ class ResponseMock:
 
 class K2bConnectionTest(TestCase):
 
-    @patch('belastingen.api.belastingen.key2belastingen.requests.get', lambda url: ResponseMock())
+    @patch('belastingen.api.belastingen.key2belastingen.requests.get', lambda *args, **kwargs: ResponseMock())
     def test_get_data(self):
-        connection = K2bConnection('localhost')
+        connection = K2bConnection('https://localhost', 'token')
         data = connection.get_data('111222333')
         self.assertEqual(data, {'a': 1})
