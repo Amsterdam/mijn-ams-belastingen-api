@@ -16,8 +16,8 @@ def get_tma_certificate():
 
 
 def get_K2B_api_location():
-    return os.getenv('K2B_API_LOCATION')
+    return os.getenv('K2B_API_LOCATION').strip()
 
 
 def get_bearer_token():
-    return os.getenv('K2B_BEARER_TOKEN')
+    return os.getenv('K2B_BEARER_TOKEN').strip()

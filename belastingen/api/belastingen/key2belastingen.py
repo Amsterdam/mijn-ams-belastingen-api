@@ -3,12 +3,16 @@ import requests
 
 class K2bConnection:
     """ Class to manage the connection to Key2Belastingen. """
-    def __init__(self, api_location):
+    def __init__(self, api_location, bearer_token):
         self.api_location = api_location
+        self.bearer_token = bearer_token
 
     def get_data(self, bsn: str):
         url = "%s?subjid=%s" % (self.api_location, bsn)
-        response = requests.get(url)
+        headers = {
+            "Authorization": "Bearer %s" % self.bearer_token,
+        }
+        response = requests.get(url, verify="/etc/ssl/certs/ca-certificates.crt", headers=headers)
         return response.json()
 
     def _transform(self, message):
