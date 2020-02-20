@@ -1,5 +1,7 @@
 import requests
 
+from belastingen.api.belastingen.exceptions import K2bAuthenticationError, K2bError
+
 
 class K2bConnection:
     """ Class to manage the connection to Key2Belastingen. """
@@ -13,7 +15,12 @@ class K2bConnection:
             "Authorization": "Bearer %s" % self.bearer_token,
         }
         response = requests.get(url, verify="/etc/ssl/certs/ca-certificates.crt", headers=headers)
-        return response.json()
+        if response.status_code == 200:
+            return response.json()
+        elif response.status_code == 401:
+            raise K2bAuthenticationError(response.status_code, response.content)
+        else:
+            raise K2bError(response.status_code, response.content)
 
     def _transform(self, message):
         res = {

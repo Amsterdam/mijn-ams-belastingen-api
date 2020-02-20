@@ -8,6 +8,13 @@ class ResponseMock:
     def json(self):
         return {'a': 1}
 
+    @property
+    def status_code(self):
+        return 200
+
+    def content(self):
+        return b"{'a': 1}"
+
 
 class K2bConnectionTest(TestCase):
 
