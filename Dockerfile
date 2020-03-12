@@ -19,4 +19,4 @@ COPY .flake8 /app/
 COPY belastingen /app/belastingen
 
 USER datapunt
-CMD uwsgi --ini /app/uwsgi.ini
+CMD /app/entrypoint.sh
