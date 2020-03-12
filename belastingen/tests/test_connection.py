@@ -1,7 +1,9 @@
+import os
 from unittest import TestCase
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from belastingen.api.belastingen.key2belastingen import K2bConnection
+from belastingen.tests import FIXTURE_PATH
 
 
 class ResponseMock:
@@ -16,10 +18,23 @@ class ResponseMock:
         return b"{'a': 1}"
 
 
+@patch('belastingen.api.belastingen.key2belastingen.requests.get')
+@patch.dict(os.environ, {'BSN_TRANSLATIONS_FILE': f'{FIXTURE_PATH}/bsn_translations.json'})
 class K2bConnectionTest(TestCase):
 
-    @patch('belastingen.api.belastingen.key2belastingen.requests.get', lambda *args, **kwargs: ResponseMock())
-    def test_get_data(self):
+    def test_get_data(self, mocked_belasting_get: MagicMock):
+        mocked_belasting_get.return_value = ResponseMock()
         connection = K2bConnection('https://localhost', 'token')
         data = connection.get_data('111222333')
+        self.assertEqual(data, {'a': 1})
+
+    def test_translation(self, mocked_belasting_get: MagicMock):
+        mocked_belasting_get.return_value = ResponseMock()
+        connection = K2bConnection('https://localhost', 'token')
+        data = connection.get_data('123')
+
+        # check if the request is made with the mapped bsn
+        first_args = mocked_belasting_get.call_args[0][0]
+        self.assertEqual(first_args[-3:], "234")
+
         self.assertEqual(data, {'a': 1})

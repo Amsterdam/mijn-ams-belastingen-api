@@ -1,6 +1,7 @@
 import requests
 
 from belastingen.api.belastingen.exceptions import K2bAuthenticationError, K2bError
+from belastingen.config import get_bsn_translations
 
 
 class K2bConnection:
@@ -9,7 +10,16 @@ class K2bConnection:
         self.api_location = api_location
         self.bearer_token = bearer_token
 
+    def _translate_bsn(self, bsn):
+        """ Use a translation table to be able to test in acc. """
+        translation_table = get_bsn_translations()
+        if bsn in translation_table:
+            return translation_table[bsn]
+        else:
+            return bsn
+
     def get_data(self, bsn: str):
+        bsn = self._translate_bsn(bsn)
         url = "%s?subjid=%s" % (self.api_location, bsn)
         headers = {
             "Authorization": "Bearer %s" % self.bearer_token,

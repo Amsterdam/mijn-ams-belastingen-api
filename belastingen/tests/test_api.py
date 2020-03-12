@@ -5,10 +5,8 @@ from unittest.mock import patch
 from tma_saml import FlaskServerTMATestCase
 from tma_saml.for_tests.cert_and_key import server_crt
 
-from belastingen.config import BASE_PATH
 from belastingen.server import app
-
-FIXTURE_PATH = os.path.join(BASE_PATH, 'tests', 'fixtures')
+from belastingen.tests import FIXTURE_PATH
 
 
 def _load_json(json_file_name):

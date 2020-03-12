@@ -1,3 +1,4 @@
+import json
 import os
 import os.path
 
@@ -21,3 +22,10 @@ def get_K2B_api_location():
 
 def get_bearer_token():
     return os.getenv('K2B_BEARER_TOKEN').strip()
+
+
+def get_bsn_translations():
+    file = os.getenv('BSN_TRANSLATIONS_FILE').strip()
+    with open(file) as fp:
+        data = json.load(fp)
+    return data
