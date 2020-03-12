@@ -17,6 +17,7 @@ COPY test.sh /app/
 COPY .flake8 /app/
 
 COPY belastingen /app/belastingen
+COPY entrypoint.sh /app/entrypoint.sh
 
 USER datapunt
-CMD /app/entrypoint.sh
+CMD /bin/sh /app/entrypoint.sh
