@@ -18,6 +18,7 @@ COPY .flake8 /app/
 
 COPY belastingen /app/belastingen
 COPY entrypoint.sh /app/entrypoint.sh
+RUN "mkdir /files && chown datapunt:datapunt /files"
 
 USER datapunt
 CMD /bin/sh /app/entrypoint.sh
