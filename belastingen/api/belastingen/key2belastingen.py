@@ -60,7 +60,7 @@ class K2bConnection:
                     "description": i["omschrijving"],
                     "url": {
                         "title": i["url_naam"],
-                        "url": i["url"],
+                        "to": i["url"],
                     }
                 }
                 res["meldingen"].append(new_melding)
@@ -74,7 +74,7 @@ class K2bConnection:
                     "description": i["omschrijving"],
                     "url": {
                         "title": i["url_naam"],
-                        "url": i["url"],
+                        "to": i["url"],
                     }
                 }
                 res["tips"].append(new_tip)
