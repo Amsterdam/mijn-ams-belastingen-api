@@ -58,7 +58,7 @@ class K2bConnection:
                     "datePublished": i["datum"],
                     "title": i["titel"],
                     "description": i["omschrijving"],
-                    "url": {
+                    "link": {
                         "title": i["url_naam"],
                         "to": i["url"],
                     }
@@ -72,7 +72,7 @@ class K2bConnection:
                     "datePublished": i["datum"],
                     "title": i["titel"],
                     "description": i["omschrijving"],
-                    "url": {
+                    "link": {
                         "title": i["url_naam"],
                         "to": i["url"],
                     }

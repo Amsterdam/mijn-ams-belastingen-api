@@ -99,9 +99,9 @@ class ApiTests(FlaskServerTMATestCase):
                         'id': 4,
                         'priority': 1,
                         'title': 'Betaal uw aanslagen',
-                        'url': {
+                        'link': {
                             'title': 'Betaal direct',
-                            'url': 'https://localhost/aanslagen.php'
+                            'to': 'https://localhost/aanslagen.php'
                         }
                     }
                 ],
@@ -112,9 +112,9 @@ class ApiTests(FlaskServerTMATestCase):
                         'id': 5,
                         'priority': 10,
                         'title': 'Automatische incasso',
-                        'url': {
+                        'link': {
                             'title': 'Vraag direct aan',
-                            'url': 'https://localhost/automatische.incasso.aanvragen.php'
+                            'to': 'https://localhost/automatische.incasso.aanvragen.php'
                         }
                     }
                 ]
