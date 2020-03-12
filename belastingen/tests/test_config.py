@@ -32,7 +32,7 @@ class ConfigTest(TestCase):
         self.assertEqual(value, 'k2bbearertoken')
 
     @patch.dict(os.environ, {'BSN_TRANSLATIONS_FILE': f'{FIXTURE_PATH}/bsn_translations_empty.json'})
-    def test_get_bsn_translations(self):
+    def test_get_bsn_translations_empty(self):
         value = get_bsn_translations()
         self.assertEqual(value, {})
 
