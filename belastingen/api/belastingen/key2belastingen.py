@@ -30,7 +30,7 @@ class K2bConnection:
         elif response.status_code == 401:
             raise K2bAuthenticationError(response.status_code, response.content)
         elif response.status_code == 429:
-            raise K2bThrottleError(response.status_code, response.content)
+            raise K2bThrottleError(response.status_code, "Throttle error", response.content)
         else:
             raise K2bError(response.status_code, response.content)
 
