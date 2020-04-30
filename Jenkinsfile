@@ -26,7 +26,7 @@ node {
 
     stage('Test') {
         tryStep "test", {
-            docker.withRegistry("${DOCKER_REGISTRY}",'docker-registry') {
+            docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
                 docker.build("mijnams/${PROJ_NAME}:${env.BUILD_NUMBER}")
                 sh "docker run --rm mijnams/${PROJ_NAME}:${env.BUILD_NUMBER} /app/test.sh"
             }
@@ -36,7 +36,7 @@ node {
 
     stage("Build image") {
         tryStep "build", {
-            docker.withRegistry("${DOCKER_REGISTRY}",'docker-registry') {
+            docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
                 def image = docker.build("mijnams/${PROJ_NAME}:${env.BUILD_NUMBER}")
                 image.push()
             }
@@ -51,7 +51,7 @@ if (BRANCH == "master") {
     node {
         stage('Push acceptance image') {
             tryStep "image tagging", {
-                docker.withRegistry("${DOCKER_REGISTRY}",'docker-registry') {
+                docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
                     def image = docker.image("mijnams/${PROJ_NAME}:${env.BUILD_NUMBER}")
                     image.pull()
                     image.push("acceptance")
@@ -80,7 +80,7 @@ if (BRANCH == "master") {
     node {
         stage('Push production image') {
             tryStep "image tagging", {
-               docker.withRegistry("${DOCKER_REGISTRY}",'docker-registry') {
+                docker.withRegistry("${DOCKER_REGISTRY_HOST}",'docker_registry_auth') {
                     def image = docker.image("mijnams/${PROJ_NAME}:${env.BUILD_NUMBER}")
                     image.pull()
                     image.push("production")
