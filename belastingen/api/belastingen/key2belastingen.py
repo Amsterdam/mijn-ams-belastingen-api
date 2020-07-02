@@ -24,7 +24,7 @@ class K2bConnection:
         headers = {
             "Authorization": "Bearer %s" % self.bearer_token,
         }
-        response = requests.get(url, verify="/etc/ssl/certs/ca-certificates.crt", headers=headers)
+        response = requests.get(url, verify="/etc/ssl/certs/ca-certificates.crt", headers=headers, timeout=9)
         if response.status_code == 200:
             return response.json()
         elif response.status_code == 401:
