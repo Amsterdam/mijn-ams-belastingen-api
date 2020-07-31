@@ -96,7 +96,7 @@ class ApiTests(FlaskServerTMATestCase):
                     {
                         'datePublished': '2020-01-28T13:11:51Z',
                         'description': 'Er staat nog een aanslag open van u. Zorg voor tijdige betaling.',
-                        'id': 4,
+                        'id': 'belasting-4',
                         'priority': 1,
                         'title': 'Betaal uw aanslagen',
                         'link': {
@@ -109,7 +109,7 @@ class ApiTests(FlaskServerTMATestCase):
                     {
                         'datePublished': '2020-01-28T13:11:51Z',
                         'description': 'Betaal gemakkelijk de gecombineerde belastingaanslag. Regel vandaag nog uw automatische incasso, dan hebt u er straks geen omkijken meer naar.',
-                        'id': 5,
+                        'id': 'belasting-5',
                         'priority': 10,
                         'title': 'Automatische incasso',
                         'link': {
