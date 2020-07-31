@@ -96,7 +96,7 @@ class ApiTests(FlaskServerTMATestCase):
                     {
                         'datePublished': '2020-01-28T13:11:51Z',
                         'description': 'Er staat nog een aanslag open van u. Zorg voor tijdige betaling.',
-                        'id': 4,
+                        'id': 'belasting-4',
                         'priority': 1,
                         'title': 'Betaal uw aanslagen',
                         'link': {

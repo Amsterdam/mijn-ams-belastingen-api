@@ -55,7 +55,7 @@ class K2bConnection:
             elif i['categorie'] == 'M1':
                 # melding
                 new_melding = {
-                    "id": "belasting-"+ i["nummer"],
+                    "id": f'belasting-{i["nummer"]}',
                     "priority": i["prioriteit"],
                     "datePublished": i["datum"],
                     "title": i["titel"],
@@ -69,7 +69,7 @@ class K2bConnection:
 
             elif i['categorie'] == 'M2':
                 new_tip = {
-                    "id": i["nummer"],
+                    "id": f'belasting-{i["nummer"]}',
                     "priority": i["prioriteit"],
                     "datePublished": i["datum"],
                     "title": i["titel"],
