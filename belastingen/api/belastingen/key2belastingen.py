@@ -20,9 +20,10 @@ class K2bConnection:
 
     def get_data(self, bsn: str):
         bsn = self._translate_bsn(bsn)
-        url = "%s?subjid=%s" % (self.api_location, bsn)
+        url = self.api_location
         headers = {
             "Authorization": "Bearer %s" % self.bearer_token,
+            "subjid": bsn,
         }
         response = requests.get(url, verify="/etc/ssl/certs/ca-certificates.crt", headers=headers, timeout=9)
         if response.status_code == 200:
