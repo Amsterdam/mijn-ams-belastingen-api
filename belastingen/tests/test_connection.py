@@ -34,7 +34,6 @@ class K2bConnectionTest(TestCase):
         data = connection.get_data('123')
 
         # check if the request is made with the mapped bsn
-        first_args = mocked_belasting_get.call_args[0][0]
         headers = mocked_belasting_get.call_args[1]['headers']
         self.assertEqual(headers['subjid'], "234")
 
