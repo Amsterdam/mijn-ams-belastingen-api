@@ -75,6 +75,7 @@ class K2bConnection:
                     "datePublished": i["datum"],
                     "title": i["titel"],
                     "description": i["omschrijving"],
+                    "reason": i.get('informatie'),
                     "link": {
                         "title": i["url_naam"],
                         "to": i["url"],
