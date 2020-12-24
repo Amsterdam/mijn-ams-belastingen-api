@@ -10,7 +10,8 @@
       "titel": "Belastingen",
       "omschrijving": "Themategel belastingen.",
       "url": "https://localhost/subject.gegevens.php",
-      "url_naam": "Belastingen"
+      "url_naam": "Belastingen",
+      "informatie": "."
     },
     {
       "thema": "Belastingen",
@@ -21,7 +22,8 @@
       "titel": "Betaal uw aanslagen",
       "omschrijving": "Er staat nog een aanslag open van u. Zorg voor tijdige betaling.",
       "url": "https://localhost/aanslagen.php",
-      "url_naam": "Betaal direct"
+      "url_naam": "Betaal direct",
+      "informatie": "."
     },
     {
       "thema": "Belastingen",
@@ -32,7 +34,8 @@
       "titel": "Automatische incasso",
       "omschrijving": "Betaal gemakkelijk de gecombineerde belastingaanslag. Regel vandaag nog uw automatische incasso, dan hebt u er straks geen omkijken meer naar.",
       "url": "https://localhost/automatische.incasso.aanvragen.php",
-      "url_naam": "Vraag direct aan"
+      "url_naam": "Vraag direct aan",
+      "informatie": "U krijgt deze tip omdat u nog niet via automatische incasso betaalt"
     }
   ]
 }

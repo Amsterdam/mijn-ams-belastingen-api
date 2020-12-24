@@ -115,7 +115,8 @@ class ApiTests(FlaskServerTMATestCase):
                         'link': {
                             'title': 'Vraag direct aan',
                             'to': 'https://localhost/automatische.incasso.aanvragen.php'
-                        }
+                        },
+                        'reason': 'U krijgt deze tip omdat u nog niet via automatische incasso betaalt',
                     }
                 ]
             },
