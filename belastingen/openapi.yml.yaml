@@ -1,0 +1,96 @@
+openapi: 3.0.3
+info:
+  title: Mijn Amsterdam koppel api met Mijn Belastingen
+  description: Dit is het koppelstuk tussen Mijn Amsterdam en Mijn Belastingen
+  version: 1.0.0
+servers:
+  - url: 'https://mijn.amsterdam.nl'
+paths:
+  /belastingen/get:
+    get:
+      summary: Returns lists of tips, meldingen and whether the user is known.
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+
+components:
+  schemas:
+    response:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "OK"
+        content:
+          $ref: '#/components/schemas/response_content'
+    response_content:
+      type: object
+      properties:
+        tips:
+          $ref: '#/components/schemas/tip'
+        meldingen:
+          $ref: '#/components/schemas/melding'
+
+    tip:
+      type: object
+      properties:
+        'datePublished':
+          type: string
+          format: 'date-time'
+          example: '2020-01-28T13:11:51Z'
+        'description':
+          type: string
+          example: 'Er staat nog een aanslag open van u. Zorg voor tijdige betaling.'
+        'id':
+          type: string
+          example: 'belasting-4'
+        'priority':
+          type: number
+          example: 1
+        'title':
+          type: string
+          example: 'Betaal uw aanslagen'
+        'link':
+          type: object
+          properties:
+            'title':
+              type: string
+              example: 'Betaal direct'
+            'to':
+              type: string
+              example: 'https://localhost/aanslagen.php'
+        'reason':
+          type: string
+          example: 'U krijgt deze tip omdat u nog niet via automatische incasso betaalt'
+    melding:
+      type: object
+      properties:
+        'datePublished':
+          type: string
+          format: 'date-time'
+          example: '2020-01-28T13:11:51Z'
+        'description':
+          type: string
+          example: 'Er staat nog een aanslag open van u. Zorg voor tijdige betaling.'
+        'id':
+          type: string
+          example: 'belasting-4'
+        'priority':
+          type: number
+          example: 1
+        'title':
+          type: string
+          example: 'Betaal uw aanslagen'
+        'link':
+          type: object
+          properties:
+            'title':
+              type: string
+              example: 'Betaal direct'
+            'to':
+              type: string
+              example: 'https://localhost/aanslagen.php'
