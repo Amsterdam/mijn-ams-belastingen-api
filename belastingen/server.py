@@ -7,7 +7,12 @@ from tma_saml import get_digi_d_bsn, InvalidBSNException, SamlVerificationExcept
 
 from belastingen.api.belastingen.exceptions import K2bAuthenticationError
 from belastingen.api.belastingen.key2belastingen import K2bConnection
-from belastingen.config import get_sentry_dsn, get_tma_certificate, get_K2B_api_location, get_bearer_token
+from belastingen.config import (
+    get_sentry_dsn,
+    get_tma_certificate,
+    get_K2B_api_location,
+    get_bearer_token,
+)
 
 logger = logging.getLogger(__name__)
 app = Flask(__name__)
@@ -15,9 +20,7 @@ app = Flask(__name__)
 
 if get_sentry_dsn():  # pragma: no cover
     sentry_sdk.init(
-        dsn=get_sentry_dsn(),
-        integrations=[FlaskIntegration()],
-        with_locals=False
+        dsn=get_sentry_dsn(), integrations=[FlaskIntegration()], with_locals=False
     )
 
 
@@ -33,7 +36,7 @@ def get_bsn_from_request(request):
     return bsn
 
 
-@app.route('/belastingen/get', methods=['GET'])
+@app.route("/belastingen/get", methods=["GET"])
 def get_belastingen():
     connection = K2bConnection(get_K2B_api_location(), get_bearer_token())
     try:
@@ -53,15 +56,15 @@ def get_belastingen():
         return {"status": "ERROR", "message": "Source Authentication Error"}, 400
 
     return {
-        'status': 'OK',
-        'content': data,
+        "status": "OK",
+        "content": data,
     }
 
 
-@app.route('/status/health')
+@app.route("/status/health")
 def health_check():
-    return 'OK'
+    return "OK"
 
 
-if __name__ == '__main__':  # pragma: no cover
+if __name__ == "__main__":  # pragma: no cover
     app.run()

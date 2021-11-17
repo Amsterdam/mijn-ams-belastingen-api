@@ -1,4 +1,3 @@
-
 class K2bError(Exception):
     pass
 
