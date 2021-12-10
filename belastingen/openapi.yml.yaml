@@ -3,8 +3,6 @@ info:
   title: Mijn Amsterdam koppel api met Mijn Belastingen
   description: Dit is het koppelstuk tussen Mijn Amsterdam en Mijn Belastingen
   version: 1.0.0
-servers:
-  - url: 'https://mijn.amsterdam.nl'
 paths:
   /belastingen/get:
     get:
