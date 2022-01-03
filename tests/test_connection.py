@@ -3,7 +3,7 @@ from unittest import TestCase
 from unittest.mock import patch, MagicMock
 
 from belastingen.api.belastingen.key2belastingen import K2bConnection
-from belastingen.tests import FIXTURE_PATH
+from . import FIXTURE_PATH
 
 
 class ResponseMock:

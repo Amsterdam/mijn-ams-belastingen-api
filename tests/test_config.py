@@ -10,7 +10,7 @@ from belastingen.config import (
     get_bearer_token,
     get_bsn_translations,
 )
-from belastingen.tests import FIXTURE_PATH
+from . import FIXTURE_PATH
 
 
 class ConfigTest(TestCase):

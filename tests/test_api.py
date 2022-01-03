@@ -6,7 +6,7 @@ from tma_saml import FlaskServerTMATestCase
 from tma_saml.for_tests.cert_and_key import server_crt
 
 from belastingen.server import app
-from belastingen.tests import FIXTURE_PATH
+from . import FIXTURE_PATH
 
 
 def _load_json(json_file_name):
