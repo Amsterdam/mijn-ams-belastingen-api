@@ -9,5 +9,5 @@ flake8
 echo "Running coverage tests"
 export COVERAGE_FILE=/tmp/.coverage
 coverage erase
-coverage run --source tests -m unittest
-coverage report --fail-under=90
+coverage run --source belastingen -m unittest
+coverage report --fail-under=85
