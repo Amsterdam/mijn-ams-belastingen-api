@@ -17,7 +17,9 @@ COPY test.sh /app/
 COPY .flake8 /app/
 
 COPY belastingen /app/belastingen
+COPY tests /app/tests
 COPY entrypoint.sh /app/entrypoint.sh
+
 RUN mkdir /files && chown datapunt:datapunt /files
 
 USER datapunt
