@@ -34,7 +34,7 @@ class K2bConnection:
         return response.json()
 
     def _transform(self, message):
-        res = {"tips": [], "meldingen": [], "isKnown": False}
+        res = {"tips": [], "notifications": [], "isKnown": False}
 
         if message["status"] == "BSN known":
             res["isKnown"] = True
@@ -57,7 +57,7 @@ class K2bConnection:
                         "to": i["url"],
                     },
                 }
-                res["meldingen"].append(new_melding)
+                res["notifications"].append(new_melding)
 
             elif i["categorie"] == "M2":
                 new_tip = {

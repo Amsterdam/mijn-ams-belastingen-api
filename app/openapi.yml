@@ -17,7 +17,7 @@ paths:
         schema:
           type: string
     get:
-      summary: Informatie m.b.t. belasting tips en/of meldingen op basis van BSN
+      summary: Informatie m.b.t. belasting tips en/of notifications op basis van BSN
       responses:
         "200":
           description: OK

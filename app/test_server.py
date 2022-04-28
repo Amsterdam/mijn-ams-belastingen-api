@@ -47,7 +47,7 @@ class ApiTests(FlaskServerTestCase):
         response = self.get_secure("/belastingen/get")
 
         expected_data = {
-            "content": {"isKnown": False, "meldingen": [], "tips": []},
+            "content": {"isKnown": False, "notifications": [], "tips": []},
             "status": "OK",
         }
 
@@ -61,7 +61,7 @@ class ApiTests(FlaskServerTestCase):
         response = self.get_secure("/belastingen/get")
 
         expected_data = {
-            "content": {"isKnown": True, "meldingen": [], "tips": []},
+            "content": {"isKnown": True, "notifications": [], "tips": []},
             "status": "OK",
         }
 
@@ -77,7 +77,7 @@ class ApiTests(FlaskServerTestCase):
         expected_data = {
             "content": {
                 "isKnown": True,
-                "meldingen": [
+                "notifications": [
                     {
                         "datePublished": "2020-01-28T13:11:51Z",
                         "description": "Er staat nog een aanslag open van u. Zorg voor tijdige betaling.",
