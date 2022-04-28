@@ -9,35 +9,74 @@ info:
     url: https://data.amsterdam.nl/
 paths:
   /belastingen/get:
+    parameters:
+      - name: Authorization
+        in: header
+        description: Bearer token
+        required: true
+        schema:
+          type: string
     get:
-      summary: Returns lists of tips, meldingen and whether the user is known.
+      summary: Informatie m.b.t. belasting tips en/of meldingen op basis van BSN
       responses:
-        200:
-          description: ""
+        "200":
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/response'
+                type: object
+                properties:
+                  content:
+                    nullable: true
+                    $ref: "#/components/schemas/UserInfo"
+                  status:
+                    type: string
+                    enum:
+                      - "OK"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /status/health:
+    get:
+      summary: returns "OK"
+      responses:
+        "200":
+          description: Returns "OK"
+          content:
+            application/json:
+              schema:
+                type: string
+                enum:
+                  - "OK"
 
 components:
   schemas:
-    response:
+    UserInfo:
+      type: object
+      properties:
+        isKnown:
+          type: boolean
+        notifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/MyNotification"
+        tips:
+          type: array
+          items:
+            $ref: "#/components/schemas/Tip"
+    ErrorResponse:
       type: object
       properties:
         status:
           type: string
-          example: "OK"
-        content:
-          $ref: '#/components/schemas/response_content'
-    response_content:
-      type: object
-      properties:
-        tips:
-          $ref: '#/components/schemas/tip'
-        meldingen:
-          $ref: '#/components/schemas/melding'
-
-    tip:
+          enum:
+            - "ERROR"
+        message:
+          type: string
+    Tip:
       type: object
       properties:
         datePublished:
@@ -68,7 +107,7 @@ components:
         reason:
           type: string
           example: 'U krijgt deze tip omdat u nog niet via automatische incasso betaalt'
-    melding:
+    MyNotification:
       type: object
       properties:
         datePublished:

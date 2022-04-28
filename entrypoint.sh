@@ -6,4 +6,4 @@ mkdir -p /files/bsn_translations
 # them here, first line removes beginning quote and second removes end quote
 B=${BSN_TRANSLATIONS#"'"}
 echo ${B%"'"} > /files/bsn_translations/bsn_translations.json
-uwsgi --ini /app/uwsgi.ini
+uwsgi --ini /api/uwsgi.ini

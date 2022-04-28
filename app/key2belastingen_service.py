@@ -1,11 +1,6 @@
 import requests
 
-from belastingen.api.belastingen.exceptions import (
-    K2bAuthenticationError,
-    K2bError,
-    K2bThrottleError,
-)
-from belastingen.config import get_bsn_translations
+from app.config import get_bsn_translations
 
 
 class K2bConnection:
@@ -33,16 +28,10 @@ class K2bConnection:
         response = requests.get(
             url, verify="/etc/ssl/certs/ca-certificates.crt", headers=headers, timeout=9
         )
-        if response.status_code == 200:
-            return response.json()
-        elif response.status_code == 401:
-            raise K2bAuthenticationError(response.status_code, response.content)
-        elif response.status_code == 429:
-            raise K2bThrottleError(
-                response.status_code, "Throttle error", response.content
-            )
-        else:
-            raise K2bError(response.status_code, response.content)
+
+        response.raise_for_status()
+
+        return response.json()
 
     def _transform(self, message):
         res = {"tips": [], "meldingen": [], "isKnown": False}

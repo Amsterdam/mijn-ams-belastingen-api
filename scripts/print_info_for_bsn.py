@@ -3,8 +3,8 @@
 import json
 from sys import argv
 
-from belastingen.api.belastingen.key2belastingen import K2bConnection
-from belastingen.config import get_K2B_api_location, get_bearer_token
+from app.key2belastingen_service import K2bConnection
+from app.config import get_K2B_api_location, get_bearer_token
 
 bsn = argv[1]
 

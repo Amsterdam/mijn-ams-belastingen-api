@@ -1,26 +1,20 @@
-FROM amsterdam/python:3.8-buster
-LABEL maintainer=datapunt@amsterdam.nl
+FROM amsterdam/python:3.9.6-buster
 
-ENV PYTHONUNBUFFERED 1
+WORKDIR /api
 
-RUN apt-get update && apt-get install -y
-RUN pip install --upgrade pip
-RUN pip install uwsgi
+COPY app /api/app
+COPY scripts /api/scripts
+COPY requirements.txt /api
+COPY uwsgi.ini /api
 
-WORKDIR /app
+COPY /test.sh /api
+COPY .flake8 /api
 
-COPY /requirements.txt /app/
-COPY uwsgi.ini /app/
-RUN pip install --no-cache-dir -r /app/requirements.txt
+COPY entrypoint.sh /api/entrypoint.sh
 
-COPY test.sh /app/
-COPY .flake8 /app/
-
-COPY belastingen /app/belastingen
-COPY tests /app/tests
-COPY entrypoint.sh /app/entrypoint.sh
+RUN pip install --no-cache-dir -r /api/requirements.txt
 
 RUN mkdir /files && chown datapunt:datapunt /files
 
 USER datapunt
-CMD /bin/sh /app/entrypoint.sh
+CMD /bin/sh /api/entrypoint.sh

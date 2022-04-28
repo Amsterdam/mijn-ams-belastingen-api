@@ -2,8 +2,8 @@ import os
 from unittest import TestCase
 from unittest.mock import patch, MagicMock
 
-from belastingen.api.belastingen.key2belastingen import K2bConnection
-from . import FIXTURE_PATH
+from app.key2belastingen_service import K2bConnection
+from app.config import FIXTURES_PATH
 
 
 class ResponseMock:
@@ -17,10 +17,13 @@ class ResponseMock:
     def content(self):
         return b"{'a': 1}"
 
+    def raise_for_status(self):
+        pass
 
-@patch("belastingen.api.belastingen.key2belastingen.requests.get")
+
+@patch("app.key2belastingen_service.requests.get")
 @patch.dict(
-    os.environ, {"BSN_TRANSLATIONS_FILE": f"{FIXTURE_PATH}/bsn_translations.json"}
+    os.environ, {"BSN_TRANSLATIONS_FILE": f"{FIXTURES_PATH}/bsn_translations.json"}
 )
 class K2bConnectionTest(TestCase):
     def test_get_data(self, mocked_belasting_get: MagicMock):
